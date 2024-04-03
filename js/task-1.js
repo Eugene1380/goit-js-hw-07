@@ -1,87 +1,68 @@
-// Задача 1. Акаунт користувача
+// Завдання 1
 
-// Перед звільненням розробник зламав вихідний код управління акаунтами користувачів нашого сервісу доставки їжі.
-// Виконай рефакторинг методів об'єкта customer, розставивши відсутні this під час звернення до властивостей об'єкта.
+// HTML містить список категорій ul#categories.
 
-// Використай цей стартовий код і виконай рефакторинг. Після оголошення об'єкта ми додали виклики методів.
-// У консоль будуть виведені результати їх роботи. Будь ласка, нічого там не змінюй.
+// <ul id="categories">
+//   <li class="item">
+//     <h2>Animals</h2>
+//     <ul>
+//       <li>Cat</li>
+//       <li>Hamster</li>
+//       <li>Horse</li>
+//       <li>Parrot</li>
+//     </ul>
+//   </li>
+//   <li class="item">
+//     <h2>Products</h2>
+//     <ul>
+//       <li>Bread</li>
+//       <li>Parsley</li>
+//       <li>Cheese</li>
+//     </ul>
+//   </li>
+//   <li class="item">
+//     <h2>Technologies</h2>
+//     <ul>
+//       <li>HTML</li>
+//       <li>CSS</li>
+//       <li>JavaScript</li>
+//       <li>React</li>
+//       <li>Node.js</li>
+//     </ul>
+//   </li>
+// </ul>
 
-// const customer = {
-//   username: "Mango",
-//   balance: 24000,
-//   discount: 0.1,
-//   orders: ["Burger", "Pizza", "Salad"],
-//   // Change code below this line
-//   getBalance() {
-//     return balance;
-//   },
-//   getDiscount() {
-//     return discount;
-//   },
-//   setDiscount(value) {
-//     discount = value;
-//   },
-//   getOrders() {
-//     return orders;
-//   },
-//   addOrder(cost, order) {
-//     balance -= cost - cost * discount;
-//     orders.push(order);
-//   },
-//   // Change code above this line
-// };
+// З використанням властивостей і методів DOM-елементів, напиши скрипт, який:
 
-// customer.setDiscount(0.15);
-// console.log(customer.getDiscount()); // 0.15
-// customer.addOrder(5000, "Steak");
-// console.log(customer.getBalance()); // 19750
-// console.log(customer.getOrders()); // ["Burger", "Pizza", "Salad", "Steak"]
+// Порахує й виведе в консоль кількість категорій в ul#categories, тобто елементів li.item.
+// Для кожного елемента li.item у списку ul#categories знайде й виведе в консоль текст заголовка елемента (тегу <h2>) і кількість елементів у категорії (усіх <li>, вкладених у нього).
 
-// Залиш цей код для перевірки ментором.
 // На що буде звертати увагу ментор при перевірці:
 
-// Оголошена змінна customer
-// Значення змінної customer — це об'єкт із властивостями та методами
-// Виклик customer.getDiscount() повертає поточне значення властивості discount
-// Виклик customer.setDiscount(0.15) оновлює значення властивості discount
-// Виклик customer.getBalance() повертає поточне значення властивості balance.
-// Виклик customer.getOrders() повертає поточне значення властивості orders
-// Виклик customer.addOrder(5000, "Steak") додає "Steak" у масив значень властивості orders та оновлює баланс
-// Метод getBalance об'єкта customer використовує this
-// Метод getDiscount об'єкта customer використовує this
-// Метод setDiscount об'єкта customer використовує this
-// Метод getOrders об'єкта customer використовує this
-// Метод addOrder об'єкта customer використовує this
+// Кількість категорій, їх назва та кількість елементів отримані за допомогою властивостей і методів DOM-елементів
+// Дані за кожною категорією були отримані й виведені в консоль у тілі циклу або методу forEach()
+// У консолі має бути виведено наступне повідомлення:
+
+// Number of categories: 3
+// Category: Animals
+// Elements: 4
+// Category: Products
+// Elements: 4
+// Category: Technologies
+// Elements: 5
 
 'use strict';
 
-const customer = {
-  username: 'Mango',
-  balance: 24000,
-  discount: 0.1,
-  orders: ['Burger', 'Pizza', 'Salad'],
-  // Change code below this line
-  getBalance() {
-    return this.balance;
-  },
-  getDiscount() {
-    return this.discount;
-  },
-  setDiscount(value) {
-    this.discount = value;
-  },
-  getOrders() {
-    return this.orders;
-  },
-  addOrder(cost, order) {
-    this.balance -= cost - cost * this.discount;
-    this.orders.push(order);
-  },
-  // Change code above this line
-};
+const listCategories = document.querySelector('#categories');
 
-customer.setDiscount(0.15);
-console.log(customer.getDiscount()); // 0.15
-customer.addOrder(5000, 'Steak');
-console.log(customer.getBalance()); // 19750
-console.log(customer.getOrders()); // ["Burger", "Pizza", "Salad", "Steak"]
+const categories = document.querySelectorAll('.item');
+console.log('Number of categories:', categories.length);
+
+categories.forEach(category => {
+  const firstElementChild = category.firstElementChild.textContent;
+  console.log('Category:', firstElementChild);
+
+  const lastElementChild = category.lastElementChild;
+  const elements = lastElementChild.children.length;
+  console.log('Elements:', elements);
+});

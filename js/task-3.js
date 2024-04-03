@@ -1,79 +1,32 @@
-// Задача 3. Конструктор рядків
+// Завдання 3
 
-// Напиши клас StringBuilder, який приймає один параметр initialValue — довільний рядок,
-// який записується у приватну властивість value об'єкта, що створюється.
+// Напиши скрипт, який під час набору тексту в інпуті input#name-input (подія input) підставляє
+// його поточне значення в span#name-output як ім’я для привітання.
+// Обов’язково очищай значення в інпуті по краях від пробілів . Якщо інпут порожній або містить лише пробіли,
+// то замість імені у спан має підставлятися рядок "Anonymous".
 
-// Оголоси наступні методи класу:
+// <input type="text" id="name-input" placeholder="Please enter your name" />
+// <h1>Hello, <span id="name-output">Anonymous</span>!</h1>
 
-// getValue() — повертає поточне значення приватної властивості value.
-// padEnd(str) — отримує параметр str (рядок) і додає його в кінець значення приватної властивості value об'єкта,
-// який викликає цей метод.
-// padStart(str) — отримує параметр str (рядок) і додає його на початок значення приватної властивості value об'єкта,
-// який викликає цей метод.
-// padBoth(str) — отримує параметр str (рядок) і додає його на початок і в кінець значення приватної властивості value об'єкта,
-// який викликає цей метод.
-// Візьми код нижче з ініціалізацією екземпляра й викликами методів і встав його після оголошення класу
-// для перевірки коректності роботи.У консоль будуть виведені результати їх роботи.Будь ласка, нічого там не змінюй.
-
-// const builder = new StringBuilder(".");
-// console.log(builder.getValue()); // "."
-// builder.padStart("^");
-// console.log(builder.getValue()); // "^."
-// builder.padEnd("^");
-// console.log(builder.getValue()); // "^.^"
-// builder.padBoth("=");
-// console.log(builder.getValue()); // "=^.^="
-
-// Залиш цей код для перевірки ментором.
 // На що буде звертати увагу ментор при перевірці:
 
-// Оголошений клас StringBuilder
-// Властивість value у класі StringBuilder оголошена приватною
-// У класі StringBuilder оголошений метод getValue
-// Метод getValue повертає значення приватної властивості value екземпляра класу, який його викликає
-// У класі StringBuilder оголошений метод padEnd
-// Метод padEnd змінює значення приватної властивості value екземпляра класу, який його викликає
-// У класі StringBuilder оголошений метод padStart
-// Метод padStart змінює приватну властивість value екземпляра класу, який його викликає
-// У класі StringBuilder оголошений метод padBoth
-// Метод padBoth змінює значення приватної властивості value екземпляра класу, який його викликає
-// У результаті виклику new StringBuilder(".") значення приватної змінної builder — це об'єкт
-// Об'єкт builder не містить публічну властивість value
-// Перший виклик builder.getValue() одразу після ініціалізації екземпляра повертає рядок .
-// Другий виклик builder.getValue() після виклику builder.padStart("^") повертає рядок ^.
-// Третій виклик builder.getValue() після виклику builder.padEnd("^") повертає рядок ^.^
-// Четвертий виклик builder.getValue() після виклику builder.padBoth("=") повертає рядок =^.^=
+// На елементі input#name-input прослуховується подія input.
+// Під час набору тексту в інпуті його поточне значення підставляється в span#name-output як ім’я для привітання.
+// Значення в інпуті очищене від пробілів по краях.
+// Якщо інпут порожній або містить лише пробіли, то замість імені у спан має підставлятися рядок "Anonymous".
 
 'use strict';
 
-class StringBuilder {
-  #value;
-  constructor(initialValue) {
-    this.#value = initialValue;
-  }
-  getValue() {
-    return this.#value;
-  }
+const input = document.querySelector('#name-input');
+const span = document.querySelector('#name-output');
 
-  padEnd(str) {
-    this.#value = `${this.#value}${str}`;
-  }
+input.addEventListener('input', onInputChangeName);
 
-  padStart(str) {
-    this.#value = `${str}${this.#value}`;
-  }
-
-  padBoth(str) {
-    this.padStart(str);
-    this.padEnd(str);
+function onInputChangeName(event) {
+  const nameUser = event.currentTarget.value.trim();
+  if (nameUser !== '') {
+    span.textContent = event.currentTarget.value.trim();
+  } else {
+    span.textContent = 'Anonymous';
   }
 }
-const builder = new StringBuilder('.');
-
-console.log(builder.getValue()); // "."
-builder.padStart('^');
-console.log(builder.getValue()); // "^."
-builder.padEnd('^');
-console.log(builder.getValue()); // "^.^"
-builder.padBoth('=');
-console.log(builder.getValue()); // "=^.^="
